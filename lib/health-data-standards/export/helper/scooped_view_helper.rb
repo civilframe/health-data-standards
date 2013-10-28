@@ -8,7 +8,8 @@ module HealthDataStandards
 
         def value_set_map(bundle_id=nil)
           default_bundle_id = HealthDataStandards::CQM::Bundle.latest_bundle_id
-          VS_MAP[bundle_id || default_bundle_id] ||= Hash[ValueSet.where({bundle_id: bundle_id}).map{ |p| [p.oid, p.code_set_map] }]
+          use_bundle_id = bundle_id || default_bundle_id
+          VS_MAP[use_bundle_id] ||= Hash[ValueSet.where({bundle_id: use_bundle_id}).map{ |p| [p.oid, p.code_set_map] }]
         end
 
         # Given a set of measures, find the data criteria/value set pairs that are unique across all of them
